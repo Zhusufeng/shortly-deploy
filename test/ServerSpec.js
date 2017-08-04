@@ -11,7 +11,7 @@ var Link = require('../app/models/link');
 // NOTE: these tests are designed for mongo!
 /////////////////////////////////////////////////////
 
-xdescribe('', function() {
+describe('', function() {
 
   beforeEach(function(done) {
     // Log out currently signed in user
@@ -133,11 +133,11 @@ xdescribe('', function() {
 
   }); // 'Link creation'
 
-  describe('Priviledged Access:', function() {
+  xdescribe('Priviledged Access:', function() {
 
     // /*  Authentication  */
     // // TODO: xit out authentication
-    it('Redirects to login page if a user tries to access the main page and is not signed in', function(done) {
+    xit('Redirects to login page if a user tries to access the main page and is not signed in', function(done) {
       request(app)
         .get('/')
         .expect(302)
@@ -147,7 +147,7 @@ xdescribe('', function() {
         .end(done);
     });
 
-    it('Redirects to login page if a user tries to create a link and is not signed in', function(done) {
+    xit('Redirects to login page if a user tries to create a link and is not signed in', function(done) {
       request(app)
         .get('/create')
         .expect(302)
@@ -157,7 +157,7 @@ xdescribe('', function() {
         .end(done);
     });
 
-    it('Redirects to login page if a user tries to see all of the links and is not signed in', function(done) {
+    xit('Redirects to login page if a user tries to see all of the links and is not signed in', function(done) {
       request(app)
         .get('/links')
         .expect(302)
