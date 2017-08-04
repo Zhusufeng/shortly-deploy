@@ -2,7 +2,15 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
     concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: ['public/client/*.js'],
+        dest: 'public/dist/appinone.js'
+      },
     },
 
     mochaTest: {
@@ -21,6 +29,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      my_target: {
+        files: {
+          'public/dist/appinone.js': ['public/dist/appinone.js']
+        }
+      }
     },
 
     eslint: {
@@ -76,8 +89,8 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
+  grunt.registerTask('build', ['concat', 'uglify']);
+
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
