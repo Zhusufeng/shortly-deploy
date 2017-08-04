@@ -29,7 +29,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      my_target: {
+      options: {
+        mangle: true
+      },
+
+      myTarget: {
         files: {
           'public/dist/appinone.js': ['public/dist/appinone.js']
         }
@@ -38,7 +42,11 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        '/app/**/*.js',
+        '/lib/*.js',
+        '/public/client/*.js',
+        '/test/*.js',
+        './*.js'
       ]
     },
 
@@ -64,6 +72,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push live master'
       }
     },
   });
@@ -86,7 +95,7 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'mochaTest'
+    'mochaTest', 'eslint'
   ]);
 
   grunt.registerTask('build', ['concat', 'uglify']);
@@ -94,14 +103,14 @@ module.exports = function(grunt) {
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
-      // add your production server task here
+      grunt.task.run(['shell:prodServer']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
+    'test', 'build', 'upload'
   ]);
 
 
